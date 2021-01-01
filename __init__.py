@@ -1,6 +1,7 @@
 from program import Program
 import os
-os.chdir(r'C:\Users\viral\Downloads')
+maindir = str(input('Podaj ścieżkę do pliku: '))
+os.chdir(rf'{maindir}')
 dir = os.getcwd()
 files = os.listdir()
 

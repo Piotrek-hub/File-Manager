@@ -1,5 +1,5 @@
 import os
-
+import time
 class Program():
 
     def __init__(self, dir, files):
@@ -29,30 +29,29 @@ class Program():
         graphicsformats = ['.jpg', '.png', '.gif', '.mp4', '.mp3', '.jfif', '.tiff', '.jpeg', '.jps', '.bmp', '.flif', '.raw', 'xcf', '.psd', 'xmp']
 
         for file in self.files:
-            for format in graphicsformats:
-                if format in file:
-                    os.rename(file, f'multimediafolder/{file}')
-                    break
 
-                elif '.exe' in file:
-                    os.rename(file, f'appsfolder/{file}')
-                    break
+            if file[-3:] in graphicsformats or file[-4:] in graphicsformats:
+                os.rename(file, f'multimediafolder/{file}')
 
-                elif '.pdf' in file or '.docx' in file or '.PDF' in file or '.txt' in file:
-                    os.rename(file, f'documentsfolder/{file}')
-                    break
+            elif '.exe' in file:
+                os.rename(file, f'appsfolder/{file}')
 
-                elif '.msi' in file:
-                    os.rename(file, f'instalatorsfolder/{file}')
-                    break
 
-                elif '.zip' in file:
-                    os.rename(file, f'zipsfolder/{file}')
-                    break
-                else:
-                    if 'instalatorsfolder' not in file and 'documentsfolder' not in file and 'appsfolder' not in file and 'multimediafolder' not in file and 'inne' not in file and 'zipsfolder' not in file and 'duplicates' not in file:
-                        os.rename(file, f'inne/{file}')
-                        break
+            elif '.pdf' in file or '.docx' in file or '.PDF' in file or '.txt' in file:
+                os.rename(file, f'documentsfolder/{file}')
+
+
+            elif '.msi' in file:
+                os.rename(file, f'instalatorsfolder/{file}')
+
+
+            elif '.zip' in file:
+                os.rename(file, f'zipsfolder/{file}')
+
+            else:
+                if 'instalatorsfolder' not in file and 'documentsfolder' not in file and 'appsfolder' not in file and 'multimediafolder' not in file and 'inne' not in file and 'zipsfolder' not in file and 'duplicates' not in file:
+                    os.rename(file, f'inne/{file}')
+
 
 
     def deleteDuplicates(self):
@@ -63,3 +62,9 @@ class Program():
                 if f'({x})' in file:
                     os.rename(file, f'duplicates/{file}')
                     break
+        return True
+
+    def start(self):
+        if self.deleteDuplicates() == True:
+            time.sleep(3)
+            self.sort()
