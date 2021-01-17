@@ -1,13 +1,12 @@
 import os
 import time
-class Program():
+class App():
 
-    def __init__(self, dir, files):
+    def __init__(self, dir):
         self.dir = dir
-        self.files = files
 
     def sort(self):
-
+        self.files = os.listdir()
         if 'multimediafolder' not in self.files:
             os.mkdir('multimediafolder')
 
@@ -23,8 +22,8 @@ class Program():
         if 'instalatorsfolder' not in self.files:
             os.mkdir('instalatorsfolder')
 
-        if 'inne' not in self.files:
-            os.mkdir('inne')
+        if 'others' not in self.files:
+            os.mkdir('others')
 
         graphicsformats = ['.jpg', '.png', '.gif', '.mp4', '.mp3', '.jfif', '.tiff', '.jpeg', '.jps', '.bmp', '.flif', '.raw', 'xcf', '.psd', 'xmp']
 
@@ -49,12 +48,13 @@ class Program():
                 os.rename(file, f'zipsfolder/{file}')
 
             else:
-                if 'instalatorsfolder' not in file and 'documentsfolder' not in file and 'appsfolder' not in file and 'multimediafolder' not in file and 'inne' not in file and 'zipsfolder' not in file and 'duplicates' not in file:
-                    os.rename(file, f'inne/{file}')
+                if 'instalatorsfolder' not in file and 'documentsfolder' not in file and 'appsfolder' not in file and 'multimediafolder' not in file and 'others' not in file and 'zipsfolder' not in file and 'duplicates' not in file:
+                    os.rename(file, f'others/{file}')
 
 
 
     def deleteDuplicates(self):
+        self.files = os.listdir()
         if 'duplicates' not in self.files:
             os.mkdir('duplicates')
         for file in self.files:
@@ -64,7 +64,3 @@ class Program():
                     break
         return True
 
-    def start(self):
-        if self.deleteDuplicates() == True:
-            time.sleep(3)
-            self.sort()
